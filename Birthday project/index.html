@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday For My Love 💖</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&family=Sarabun:ital,wght@0,300;0,400;0,600;1,400&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'soft-pink': '#FFF0F5',
+                        'blush': '#FFB6C1',
+                        'rose-pink': '#FF69B4',
+                        'warm-cream': '#FFFDF9',
+                        'pastel-yellow': '#FFF9E6',
+                        'lavender-soft': '#F3E8FF',
+                        'pastel-gold': '#F4E0A5',
+                        'love-red': '#FF4D6D'
+                    },
+                    fontFamily: {
+                        mali: ['Mali', 'cursive'],
+                        mitr: ['Mitr', 'sans-serif'],
+                        sarabun: ['Sarabun', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 40%, #fff9e6 70%, #f3e8ff 100%);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .font-mali { font-family: 'Mali', cursive; }
+        .font-mitr { font-family: 'Mitr', sans-serif; }
+
+        /* Floating background elements */
+        .bg-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp 8s infinite linear;
+            opacity: 0.6;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* Animated Bouncing Gift Box */
+        .bounce-gift {
+            animation: gentleBounce 2s infinite ease-in-out;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .bounce-gift:hover {
+            animation-play-state: paused;
+            transform: scale(1.08) rotate(-2deg);
+        }
+
+        .bounce-gift:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(-3deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-6px) rotate(3deg); }
+        }
+
+        /* Click floating heart effect */
+        .click-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: heartBurst 1s forwards ease-out;
+            font-size: 1.5rem;
+        }
+
+        @keyframes heartBurst {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+            100% { transform: translate(-50%, -120px) scale(1.5); opacity: 0; }
+        }
+
+        /* Candle Flame Animation */
+        .flame {
+            width: 14px;
+            height: 22px;
+            background: linear-gradient(to bottom, #ffea00, #ff6a00, #ff0000);
+            border-radius: 50% 50% 35% 35%;
+            box-shadow: 0 0 15px #ffea00, 0 0 25px #ff6a00;
+            animation: flicker 0.6s infinite alternate;
+            transform-origin: center bottom;
+            cursor: pointer;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) rotate(-2deg); }
+            100% { transform: scale(1.15) rotate(3deg); box-shadow: 0 0 20px #ffea00, 0 0 30px #ff6a00; }
+        }
+
+        /* Custom Polaroid Effect */
+        .polaroid-card {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 25px -5px rgba(255, 105, 180, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .polaroid-card:hover {
+            transform: translateY(-8px) rotate(1deg) scale(1.02);
+            box-shadow: 0 20px 30px -10px rgba(255, 105, 180, 0.35);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff0f5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffb6c1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff69b4;
+        }
+    </style>
+</head>
+<body class="text-gray-700 min-h-screen relative select-none">
+
+    <div id="bg-hearts-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Hero Landing Section with Bouncing Gift Box (Without Yellow Top Lid) -->
+    <section id="hero-section" class="min-h-screen flex flex-col items-center justify-center relative px-4 z-10">
+        <div id="landing-card" class="text-center max-w-lg w-full bg-white/80 backdrop-blur-lg p-8 rounded-3xl shadow-2xl border-2 border-pink-100">
+            <div class="inline-block p-4 rounded-full bg-pink-100 text-rose-pink mb-3 shadow-inner">
+                <i class="fas fa-heart text-4xl"></i>
+            </div>
+            
+            <h2 class="text-pink-400 font-mali text-sm md:text-base mb-1 tracking-wider uppercase">SPECIAL DAY FOR MY FAVORITE PERSON</h2>
+            <h1 class="text-3xl md:text-4xl font-bold font-mitr text-gray-800 mb-6">สุขสันต์วันเกิดนะคนเก่ง 💖</h1>
+
+            <!-- Animated Gift Box (Lid removed, ribbon ribbon intact) -->
+            <div onclick="openGiftBox()" class="cursor-pointer inline-block relative my-4">
+                <div class="w-36 h-36 md:w-44 md:h-44 bg-gradient-to-tr from-pink-400 via-rose-400 to-amber-300 rounded-3xl shadow-xl flex items-center justify-center relative overflow-hidden border-2 border-white/50 bounce-gift">
+                    <!-- Vertical Ribbon Bar -->
+                    <div class="absolute w-8 h-full bg-amber-200/90 shadow-md"></div>
+                    <!-- Horizontal Ribbon Bar -->
+                    <div class="absolute h-8 w-full bg-amber-200/90 shadow-md"></div>
+                    <!-- Gift Icon Bow -->
+                    <i class="fas fa-gift text-7xl text-white drop-shadow-lg z-10"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Birthday Wish Letter Section -->
+    <section id="letter-section" class="min-h-screen py-16 px-4 flex items-center justify-center relative z-10">
+        <div class="max-w-2xl w-full bg-white/90 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-xl border border-pink-200 relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-pink-100 rounded-full blur-2xl opacity-70"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-100 rounded-full blur-2xl opacity-70"></div>
+
+            <div class="flex items-center justify-between border-b border-pink-100 pb-4 mb-6">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 bg-red-400 rounded-full"></span>
+                    <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+                    <span class="w-3 h-3 bg-green-400 rounded-full"></span>
+                </div>
+                <div class="font-mali text-xs text-pink-400 bg-pink-50 px-3 py-1 rounded-full border border-pink-100">💌 To My Precious One</div>
+            </div>
+
+            <div class="space-y-4 font-sarabun text-gray-700 leading-relaxed text-base md:text-lg">
+                <p class="font-mali text-2xl font-bold text-rose-500 mb-2">ถึง เจ้าความสุขของพี่ ❤️</p>
+                
+                <p id="typed-text" class="min-h-[140px] italic text-gray-600 border-l-4 border-rose-300 pl-4 py-1">
+                    <!-- Typing Animation Text inserting via JS -->
+                </p>
+
+                <p class="pt-2">
+                    ขอบคุณที่ก้าวเข้ามาเป็นเรื่องราวดีๆ เป็นรอยยิ้ม และเป็นเซฟโซนที่อบอุ่นที่สุด วันเกิดปีนี้ขอให้ตัวเองมีความสุขมากๆ ไม่เจ็บไม่ป่วย มีรอยยิ้มสดใสในทุกๆวัน และขอให้พี่ได้อยู่ยินดีกับความสำเร็จของตัวเองไปเรื่อยๆ เลยนะ ✨
+                </p>
+
+                <div class="pt-6 flex justify-between items-end border-t border-pink-50">
+                    <div class="text-xs text-gray-400 font-mali">
+                        <i class="fas fa-calendar-alt mr-1 text-pink-400"></i> วันเกิดสุดพิเศษปีนี้ 🎂
+                    </div>
+                    <div class="text-right font-mali text-rose-500 font-semibold">
+                        รักตัวเองที่สุดในโลกเลย ❤️<br>
+                        <span class="text-xs text-gray-400 font-normal">- จากผู้ชายอ้วนๆ ที่รักตัวเองเสมอ -</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Gallery Section (6 Frames) -->
+    <section id="gallery-section" class="min-h-screen py-16 px-4 max-w-6xl mx-auto relative z-10">
+        <div class="text-center mb-12">
+            <span class="bg-rose-100 text-rose-600 font-mali text-xs px-4 py-1.5 rounded-full uppercase tracking-wider">Memory Scrapbook</span>
+            <h2 class="text-3xl md:text-4xl font-bold font-mitr text-gray-800 mt-2">คลังความทรงจำของเรา 📸</h2>
+            <p class="text-gray-500 font-sarabun text-sm mt-1">ทุกๆ ช่วงเวลาที่มีเธอ มันคือช่วงเวลาที่พิเศษเสมอ</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-2">
+            
+            <!-- Polaroid Item 1 -->
+            <div class="polaroid-card p-4 rounded-2xl rotate-[-2deg]">
+                <div class="aspect-square bg-gradient-to-br from-pink-100 to-rose-200 rounded-xl overflow-hidden relative flex items-center justify-center group">
+                    <img src="img/img1.jpg" alt="Memory 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/400x400/ffb6c1/ffffff?text=Our+First+Smile';">
+                    <div class="absolute inset-0 bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                <div class="pt-4 pb-2 text-center font-mali">
+                    <p class="text-gray-800 font-bold text-lg">รอยยิ้มที่ทำให้ตกหลุมรัก 😊</p>
+                </div>
+            </div>
+
+            <!-- Polaroid Item 2 -->
+            <div class="polaroid-card p-4 rounded-2xl rotate-[3deg]">
+                <div class="aspect-square bg-gradient-to-br from-purple-100 to-pink-200 rounded-xl overflow-hidden relative flex items-center justify-center group">
+                    <img src="img/img2.jpeg" alt="Memory 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/400x400/f3e8ff/ffffff?text=Special+Trip';">
+                    <div class="absolute inset-0 bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                <div class="pt-4 pb-2 text-center font-mali">
+                    <p class="text-gray-800 font-bold text-lg">ทริปลำบากครั้งแรกของเรา ✈️</p>
+                    <p class="text-xs text-rose-400 mt-1">ขอบคุณที่ออกมาเที่ยวด้วยกัน ถึงแม้จะลำบากนิดหน่อย 😅</p>
+                </div>
+            </div>
+
+            <!-- Polaroid Item 3 -->
+            <div class="polaroid-card p-4 rounded-2xl rotate-[-1deg]">
+                <div class="aspect-square bg-gradient-to-br from-yellow-100 to-pink-200 rounded-xl overflow-hidden relative flex items-center justify-center group">
+                    <img src="img/img3.jpg" alt="Memory 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/400x400/fff9e6/ffffff?text=Delicious+Meal';">
+                    <div class="absolute inset-0 bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                <div class="pt-4 pb-2 text-center font-mali">
+                    <p class="text-gray-800 font-bold text-lg">คนแก่ถ่ายรูปไม่ค่อยเก่ง 🍰</p>
+                    <p class="text-xs text-rose-400 mt-1">แต่จะพยายามถ่ายด้วยกันให้เยอะๆ กว่านี้นะ 😘</p>
+                </div>
+            </div>
+
+            <!-- Polaroid Item 4 -->
+            <div class="polaroid-card p-4 rounded-2xl rotate-[2deg]">
+                <div class="aspect-square bg-gradient-to-br from-pink-100 to-purple-200 rounded-xl overflow-hidden relative flex items-center justify-center group">
+                    <img src="img/img4.jpg" alt="Memory 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/400x400/ffb6c1/ffffff?text=Sweet+Sunset';">
+                    <div class="absolute inset-0 bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                <div class="pt-4 pb-2 text-center font-mali">
+                    <p class="text-gray-800 font-bold text-lg">วิวสวยๆ กับคนน่ารัก 🌅</p>
+                    <p class="text-xs text-rose-400 mt-1">น้ำตกที่ว่าสวยยังสู้รอยยิ้มของตัวเองไม่ได้เลย 💕</p>
+                </div>
+            </div>
+
+            <!-- Polaroid Item 5 -->
+            <div class="polaroid-card p-4 rounded-2xl rotate-[-3deg]">
+                <div class="aspect-square bg-gradient-to-br from-rose-100 to-amber-100 rounded-xl overflow-hidden relative flex items-center justify-center group">
+                    <img src="img/img5.jpg" alt="Memory 5" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/400x400/f4e0a5/ffffff?text=Laughs+Together';">
+                    <div class="absolute inset-0 bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                <div class="pt-4 pb-2 text-center font-mali">
+                    <p class="text-gray-800 font-bold text-lg">อยากเที่ยวอีกแล้ว 💖</p>
+                    <p class="text-xs text-rose-400 mt-1">อยากออกไปเที่ยวด้วยกันกับตัวเองหลายๆ ที่ </p>
+                </div>
+            </div>
+
+            <!-- Polaroid Item 6 -->
+            <div class="polaroid-card p-4 rounded-2xl rotate-[1deg]">
+                <div class="aspect-square bg-gradient-to-br from-purple-100 to-rose-200 rounded-xl overflow-hidden relative flex items-center justify-center group">
+                    <img src="img/img6.jpg" alt="Memory 6" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.onerror=null; this.src='https://placehold.co/400x400/f3e8ff/ffffff?text=Forever+Together';">
+                    <div class="absolute inset-0 bg-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                <div class="pt-4 pb-2 text-center font-mali">
+                    <p class="text-gray-800 font-bold text-lg">จะอยู่ข้างตัวเองเสมอ 👥</p>
+                    <p class="text-xs text-rose-400 mt-1">รักตัวเองในทุกๆ วันและตลอดไปนะคะ</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Interactive Birthday Cake Section -->
+    <section id="cake-section" class="min-h-screen py-16 px-4 flex flex-col items-center justify-center relative z-10">
+        <div class="text-center max-w-xl w-full bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-pink-100">
+            <span class="bg-yellow-100 text-amber-600 font-mali text-xs px-4 py-1.5 rounded-full uppercase">Make A Wish</span>
+            <h2 class="text-3xl font-bold font-mitr text-gray-800 mt-2 mb-2">อธิษฐานแล้วเป่าเทียนได้เลย 🕯️</h2>
+            <p id="cake-instruction" class="text-rose-500 font-sarabun text-sm mb-8 animate-pulse">
+                ( แตะที่เปลวไฟของเทียนแต่ละเล่มเพื่อเป่าให้ดับ !!! )
+            </p>
+
+            <!-- CSS Birthday Cake Container -->
+            <div class="relative w-64 h-64 mx-auto flex flex-col items-center justify-end mb-6">
+                <!-- Candles Container -->
+                <div class="flex justify-center items-end gap-6 z-20 mb-[-4px]">
+                    <!-- Candle 1 -->
+                    <div class="flex flex-col items-center">
+                        <div id="flame-1" onclick="blowCandle(1)" class="flame mb-1"></div>
+                        <div class="w-3.5 h-12 bg-gradient-to-b from-pink-300 to-pink-400 rounded-t-md border-b border-pink-500 shadow"></div>
+                    </div>
+                    <!-- Candle 2 (Center) -->
+                    <div class="flex flex-col items-center mb-2">
+                        <div id="flame-2" onclick="blowCandle(2)" class="flame mb-1"></div>
+                        <div class="w-3.5 h-14 bg-gradient-to-b from-yellow-200 to-yellow-400 rounded-t-md border-b border-yellow-500 shadow"></div>
+                    </div>
+                    <!-- Candle 3 -->
+                    <div class="flex flex-col items-center">
+                        <div id="flame-3" onclick="blowCandle(3)" class="flame mb-1"></div>
+                        <div class="w-3.5 h-12 bg-gradient-to-b from-purple-300 to-purple-400 rounded-t-md border-b border-purple-500 shadow"></div>
+                    </div>
+                </div>
+
+                <!-- Cake Top Layer -->
+                <div class="w-48 h-16 bg-pink-300 rounded-t-3xl relative overflow-hidden shadow-inner flex items-center justify-center border-b-4 border-pink-400">
+                    <div class="absolute top-0 w-full flex justify-around">
+                        <span class="w-6 h-6 bg-white rounded-full -mt-3"></span>
+                        <span class="w-6 h-6 bg-white rounded-full -mt-3"></span>
+                        <span class="w-6 h-6 bg-white rounded-full -mt-3"></span>
+                        <span class="w-6 h-6 bg-white rounded-full -mt-3"></span>
+                        <span class="w-6 h-6 bg-white rounded-full -mt-3"></span>
+                    </div>
+                    <span class="font-mali text-white text-xs z-10 drop-shadow">Happy Birthday</span>
+                </div>
+
+                <!-- Cake Bottom Layer -->
+                <div class="w-60 h-20 bg-rose-200 rounded-t-xl relative overflow-hidden shadow-md flex items-center justify-center border-b-8 border-rose-300">
+                    <div class="absolute top-0 w-full flex justify-between px-2">
+                        <div class="w-4 h-4 bg-yellow-300 rounded-full"></div>
+                        <div class="w-4 h-4 bg-pink-400 rounded-full"></div>
+                        <div class="w-4 h-4 bg-purple-300 rounded-full"></div>
+                        <div class="w-4 h-4 bg-yellow-300 rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Plate Base -->
+                <div class="w-68 h-4 bg-gray-200 rounded-full shadow-lg border-t border-white"></div>
+            </div>
+
+            <!-- Celebration Wish Reveal Message -->
+            <div id="wish-message" class="hidden transition-all duration-700 opacity-0 transform scale-95 mt-4 bg-rose-50 p-4 rounded-2xl border border-rose-200">
+                <h3 class="font-mitr text-xl text-rose-600 font-bold mb-1">🎉 คำอธิษฐานสมหวังแล้ว! 🎉</h3>
+                <p class="font-sarabun text-gray-700 text-sm">
+                    ขอให้พรทุกประการที่ตัวเองตั้งใจอธิษฐานกลายเป็นจริงในเร็ววัน ถึงพี่จะแสดงออกไม่เก่งแต่พี่จะรักและคอยอยู่ข้างตัวเองในทุกๆ วันนะ❤️
+                </p>
+                <button onclick="triggerConfetti()" class="mt-3 px-4 py-1.5 bg-rose-500 text-white rounded-full text-xs font-mitr hover:bg-rose-600 transition shadow">
+                    จุดพลุฉลองอีกรอบ 🎆
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center font-mali text-xs text-rose-400 relative z-10">
+        Created with 💕 for the most special girl in my world
+    </footer>
+
+    <script>
+        /* Web Audio API Music Box Synthesizer */
+        let audioCtx = null;
+        let isMusicPlaying = false;
+
+        const notes = {
+            C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23,
+            G4: 392.00, A4: 440.00, B4: 493.88, C5: 523.25,
+            D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99
+        };
+
+        const birthdayMelody = [
+            { note: 'G4', duration: 0.35 }, { note: 'G4', duration: 0.25 },
+            { note: 'A4', duration: 0.6 },  { note: 'G4', duration: 0.6 },
+            { note: 'C5', duration: 0.6 },  { note: 'B4', duration: 1.2 },
+            
+            { note: 'G4', duration: 0.35 }, { note: 'G4', duration: 0.25 },
+            { note: 'A4', duration: 0.6 },  { note: 'G4', duration: 0.6 },
+            { note: 'D5', duration: 0.6 },  { note: 'C5', duration: 1.2 },
+
+            { note: 'G4', duration: 0.35 }, { note: 'G4', duration: 0.25 },
+            { note: 'G5', duration: 0.6 },  { note: 'E5', duration: 0.6 },
+            { note: 'C5', duration: 0.6 },  { note: 'B4', duration: 0.6 },
+            { note: 'A4', duration: 0.8 },
+
+            { note: 'F5', duration: 0.35 }, { note: 'F5', duration: 0.25 },
+            { note: 'E5', duration: 0.6 },  { note: 'C5', duration: 0.6 },
+            { note: 'D5', duration: 0.6 },  { note: 'C5', duration: 1.4 }
+        ];
+
+        function playChimeNote(freq, startTime, duration) {
+            if (!audioCtx || audioCtx.state === 'closed') return;
+
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, startTime);
+
+            gain.gain.setValueAtTime(0, startTime);
+            gain.gain.linearRampToValueAtTime(0.2, startTime + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration + 0.8);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(startTime);
+            osc.stop(startTime + duration + 0.9);
+        }
+
+        function startMusicLoop() {
+            if (isMusicPlaying) return;
+            
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            isMusicPlaying = true;
+
+            function playSequence() {
+                if (!isMusicPlaying) return;
+
+                let currentTime = audioCtx.currentTime + 0.1;
+                let totalDuration = 0;
+
+                birthdayMelody.forEach(item => {
+                    if (notes[item.note]) {
+                        playChimeNote(notes[item.note], currentTime + totalDuration, item.duration);
+                    }
+                    totalDuration += item.duration * 0.75;
+                });
+
+                setTimeout(() => {
+                    if (isMusicPlaying) playSequence();
+                }, (totalDuration + 1.5) * 1000);
+            }
+
+            playSequence();
+        }
+
+        /* Floating background hearts generator */
+        function createBgHearts() {
+            const container = document.getElementById('bg-hearts-container');
+            const heartIcons = ['💖', '🌸', '✨', '💕', '🌷', '🎀'];
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'bg-heart';
+                heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        /* Heart effect on every screen click */
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('button') || e.target.closest('.flame')) return;
+            
+            const heart = document.createElement('div');
+            heart.className = 'click-heart';
+            heart.innerText = ['❤️', '💖', '✨', '🌸', '💕'][Math.floor(Math.random() * 5)];
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 1000);
+        });
+
+        /* Open Gift Box: Starts audio & smooth scroll directly */
+        function openGiftBox() {
+            startMusicLoop();
+            document.getElementById('letter-section').scrollIntoView({ behavior: 'smooth' });
+            startTypingEffect();
+        }
+
+        /* Typed effect for Birthday wish */
+        const wishText = "ขอให้ทุกๆ วันของตัวเองเต็มไปด้วยความสุข ความสดใส และรอยยิ้มเสมอ มีเงินใช้เยอะๆ ไม่ป่วย ไม่เครียด ดูแลรักษาสุขภาพ และเป็นที่รักและเด็กดีของคนในครอบครัวนะครับ พี่รู้สึกโชคดีเสมอที่มีตัวเองอยู่ข้างๆ รักนะคะ...💕";
+        let typedIndex = 0;
+        let isTypingStarted = false;
+
+        function startTypingEffect() {
+            if (isTypingStarted) return;
+            isTypingStarted = true;
+            const target = document.getElementById('typed-text');
+            target.innerHTML = "";
+            
+            function typeNextChar() {
+                if (typedIndex < wishText.length) {
+                    target.innerHTML += wishText.charAt(typedIndex);
+                    typedIndex++;
+                    setTimeout(typeNextChar, 50);
+                }
+            }
+            typeNextChar();
+        }
+
+        /* Candle Blowing Logic */
+        let activeCandles = 3;
+        function blowCandle(id) {
+            const flame = document.getElementById(`flame-${id}`);
+            if (flame && flame.style.display !== 'none') {
+                flame.style.display = 'none';
+                activeCandles--;
+
+                confetti({
+                    particleCount: 15,
+                    spread: 40,
+                    origin: { y: 0.6 }
+                });
+
+                if (activeCandles === 0) {
+                    setTimeout(celebrateCake, 400);
+                }
+            }
+        }
+
+        function celebrateCake() {
+            document.getElementById('cake-instruction').innerText = "✨ สุขสันต์วันเกิดครับคนเก่ง! 🎉";
+            const wishMsg = document.getElementById('wish-message');
+            wishMsg.classList.remove('hidden');
+            setTimeout(() => {
+                wishMsg.classList.remove('opacity-0', 'scale-95');
+            }, 100);
+
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        window.onload = function() {
+            createBgHearts();
+        };
+    </script>
+</body>
+</html>
